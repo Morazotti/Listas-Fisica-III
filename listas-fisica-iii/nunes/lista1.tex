@@ -1,0 +1,413 @@
+% Created 2020-03-02 Mon 00:53
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage[portuguese]{babel}
+\author{Nícolas Morazotti}
+\date{\today}
+\title{Lista 1}
+\hypersetup{
+ pdfauthor={Nícolas Morazotti},
+ pdftitle={Lista 1},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 26.3 (Org mode 9.1.9)}, 
+ pdflang={Portuguese}}
+\begin{document}
+
+\maketitle
+\section{Questão 1}
+\label{sec:org53b54c4}
+Considere um sistema cartesiano tridimensional e um cubo imaginário de
+lado \(a\) posicionado de forma que um dos vértices esteja na origem, com
+uma das arestas alinhadas com o eixo \(\hat x\), outra com o eixo \(\hat y\)
+e uma terceira com o eixo \(\hat z\). Assim, um dos vértices está na
+posição \((a,0,0)\), outro na posição \((0,a,0)\) e outro na posição
+\((0,0,a)\). Os outros quatro vértices estão nas posições
+\((0,a,a), (a,0,a), (a,a,0)\) e \((a,a,a)\). Posiciona-se uma carga \(q\) no
+vértice \((a,a,a)\) e uma carga \(-q\) na origem do sistema. Calcule a força
+elétrica sobre a carga no vértice \((a,a,a)\) devida à carga na origem. 
+
+\begin{figure}[h!]
+  \centering
+  \begin{tikzpicture}
+    \filldraw[->] (0,0,0) -- (3,0,0) node[anchor=west] {$x$};
+    \filldraw[->] (0,0,0) -- (0,3,0) node[anchor=west] {$y$};
+    \filldraw[->] (0,0,0) -- (0,0,3) node[anchor=west] {$z$}; 
+    \draw[dashed] (0,0,0) -- (2,0,0);
+    \draw[dashed] (0,0,0) -- (0,2,0);
+    \draw[dashed] (0,0,0) -- (0,0,2);
+    \draw[dashed] (2,2,2) -- (2,2,0);
+    \draw[dashed] (2,2,2) -- (2,0,2);
+    \draw[dashed] (2,2,2) -- (0,2,2);
+    \draw[dashed] (0,0,2) -- (0,2,2);
+    \draw[dashed] (2,0,0) -- (2,0,2);
+    \draw[dashed] (2,0,0) -- (2,2,0);
+    \draw[dashed] (0,0,2) -- (2,0,2);
+    \draw[dashed] (0,2,0) -- (0,2,2);
+    \draw[dashed] (0,2,0) -- (2,2,0);
+    \filldraw[blue] (0,0,0) circle (2pt) node[anchor=east] {$-q$};
+    \filldraw[red] (2,2,2) circle (2pt) node[anchor=west] {$q$};
+    \node[anchor=west] at (2,1,0) {$a$};
+    \end{tikzpicture}
+  \caption{Diagrama da Questão 1.}
+  \label{fig:ex-1}
+\end{figure}
+
+A equação de força entre as cargas \(q\) e \(-q\) é
+\begin{align}
+  \label{eq:1}
+  \mathbf{F}{-q,q}(a,a,a) = -\frac{q^2}{4\pi\varepsilon_0}\frac{\mathbf{r}}{|\mathbf{r}|^3},
+\end{align}
+com \(\mathbf r = (a,a,a) - (0,0,0) = a(\hat x+\hat y+\hat
+z)\). Substituindo \textbf{r} na Equação \ref{eq:1}, temos
+\begin{align*}
+  \mathbf{F}_{-q,q}(a,a,a) &= -\frac{aq^2}{4\pi\varepsilon_0}
+                             \frac{(\hat x+\hat y+\hat z)}{(3a^2)^{3/2}}\\
+                           &= -\frac{q^2}{12\sqrt3\pi a^2\varepsilon_0}(\hat x+\hat y+\hat z).
+\end{align*}
+\section{Questão 2}
+\label{sec:orgc4c9bd3}
+Na situação da questão 1, calcule a força elétrica sobre a carga na
+origem devida à carga no vértice  \((a,a,a)\) e verifique que ela respeita
+a Terceira Lei de Newton em relação à força calculada na questão 1.
+
+A equação \ref{eq:1} da força ainda vale, com a distinção de que \(\mathbf
+r = (0,0,0) - (a,a,a) = -a(\hat x+\hat y+\hat z)\). Assim,
+\begin{align*}
+  \mathbf{F}_{q,-q}(0,0,0) &= -\frac{(-a)q^2}{4\pi\varepsilon_0}
+                             \frac{(\hat x+\hat y+\hat z)}{(3a^2)^{3/2}}\\
+                           &= \frac{q^2}{12\sqrt 3\pi\varepsilon_0}(\hat x+\hat y+\hat z),
+\end{align*}
+igual em módulo e direção mas em sentido oposto em relação ao resultado
+do exercício 1. Portanto, vemos que ela respeita a Terceira Lei de Newton.
+\section{Questão 3}
+\label{sec:org1927794}
+Considerado o cubo da questão 1, posiciona-se uma carga \(q\) em cada um
+dos quatro vértices do plano \(z=0\) e nenhuma carga nos outros
+vértices. Calcule a força elétrica total sobre a carga no vértice
+\((a,a,0)\).
+
+\begin{figure}[h!]
+  \centering
+  \begin{tikzpicture}
+    \filldraw[->] (0,0,0) -- (3,0,0) node[anchor=west] {$x$};
+    \filldraw[->] (0,0,0) -- (0,3,0) node[anchor=west] {$y$};
+    \filldraw[->] (0,0,0) -- (0,0,3) node[anchor=west] {$z$}; 
+    \draw[dashed] (0,0,0) -- (2,0,0);
+    \draw[dashed] (0,0,0) -- (0,2,0);
+    \draw[dashed] (0,0,0) -- (0,0,2);
+    \draw[dashed] (2,2,2) -- (2,2,0);
+    \draw[dashed] (2,2,2) -- (2,0,2);
+    \draw[dashed] (2,2,2) -- (0,2,2);
+    \draw[dashed] (0,0,2) -- (0,2,2);
+    \draw[dashed] (2,0,0) -- (2,0,2);
+    \draw[dashed] (2,0,0) -- (2,2,0);
+    \draw[dashed] (0,0,2) -- (2,0,2);
+    \draw[dashed] (0,2,0) -- (0,2,2);
+    \draw[dashed] (0,2,0) -- (2,2,0);
+    \filldraw[red] (2,2,0) circle (2pt) node[anchor=west] {$q$};
+    \node[anchor=south] at (2,2,0) {$4$};
+    \node[anchor=north] at (2,0,0) {$3$};
+    \node[anchor=east] at (0,2,0) {$2$};
+    \node[anchor=east] at (0,0,0) {$1$};
+    \filldraw[red] (2,0,0) circle (2pt) node[anchor=west] {$q$};
+    \filldraw[red] (0,2,0) circle (2pt) node[anchor=west] {$q$};
+    \filldraw[red] (0,0,0) circle (2pt) node[anchor=west] {$q$};
+    \end{tikzpicture}
+  \caption{Diagrama da Questão 3.}
+  \label{fig:ex-3}
+\end{figure}
+A força sobre a carga no vértice \((a,a,0)\) (na Figura \ref{fig:ex-3},
+carga \(4\)) pode ser calculada usando o
+Princípio de Superposição:
+\begin{align}
+  \mathbf{F}_{4}(a,a,0)
+  &= \mathbf{F}_{14}+\mathbf{F}_{24}+\mathbf{F}_{34}\nonumber\\
+  &= \frac{q^2}{4\pi\varepsilon_0}\left(
+    \frac{\mathbf{d}_{14}}{|\mathbf{d}_{14}|^3}+
+    \frac{\mathbf{d}_{24}}{|\mathbf{d}_{24}|^3}+
+    \frac{\mathbf{d}_{34}}{|\mathbf{d}_{34}|^3}
+    \right).\label{eq:2}
+\end{align}
+As distâncias podem ser calculadas como
+\begin{align*}
+  \mathbf{d}_{14}
+  &= (a,a,0) - (0,0,0) = a(\hat x+\hat y),\nonumber\\
+  |\mathbf{d}_{14}|
+  &= \sqrt{2a^2} = a\sqrt2,\nonumber\\
+  \mathbf{d}_{24}
+  &= (a,a,0) - (0,a,0) = a\hat x,\nonumber\\
+  |\mathbf{d}_{24}| &= a\nonumber,\\
+  \mathbf{d}_{34}
+  &= (a,a,0) - (a,0,0) = a\hat y,\nonumber\\
+  |\mathbf{d}_{34}|
+  &= a\nonumber.
+\end{align*}
+Substituindo-as na Equação \ref{eq:2}, temos
+\begin{align*}
+  \mathbf{F}_{4}(a,a,0)
+  &= \frac{q^2}{4\pi\varepsilon_0}\left(
+    a\frac{\hat x+\hat y}{2\sqrt2 a^3}+
+    a\frac{\hat x}{a^3}+
+    a\frac{\hat y}{a^3}
+    \right)\\
+  &= \frac{q^2}{4\pi\varepsilon_0}\left(
+    \frac{\hat x+\hat y}{2\sqrt2 a^2}+
+    \frac{\hat x}{a^2}+
+    \frac{\hat y}{a^2}
+    \right)\\
+  &= \frac{(2\sqrt2+1)q^2}{8\sqrt2a^2\pi\varepsilon_0}(\hat x+\hat y).
+\end{align*}
+\section{Questão 4}
+\label{sec:orgf01456e}
+De novo considerado o cubo da questão 1, posiciona-se uma carga \(q\) em
+cada um dos oito vértices. Calcule o campo elétrico no centro do
+cubo. Discuta fisicamente o resultado.
+
+\begin{figure}[h!]
+  \centering
+  \begin{tikzpicture}
+    \filldraw[->] (0,0,0) -- (3,0,0) node[anchor=west] {$x$};
+    \filldraw[->] (0,0,0) -- (0,3,0) node[anchor=west] {$y$};
+    \filldraw[->] (0,0,0) -- (0,0,3) node[anchor=west] {$z$}; 
+    \draw[dashed] (0,0,0) -- (2,0,0);
+    \draw[dashed] (0,0,0) -- (0,2,0);
+    \draw[dashed] (0,0,0) -- (0,0,2);
+    \draw[dashed] (2,2,2) -- (2,2,0);
+    \draw[dashed] (2,2,2) -- (2,0,2);
+    \draw[dashed] (2,2,2) -- (0,2,2);
+    \draw[dashed] (0,0,2) -- (0,2,2);
+    \draw[dashed] (2,0,0) -- (2,0,2);
+    \draw[dashed] (2,0,0) -- (2,2,0);
+    \draw[dashed] (0,0,2) -- (2,0,2);
+    \draw[dashed] (0,2,0) -- (0,2,2);
+    \draw[dashed] (0,2,0) -- (2,2,0);
+    \filldraw[black] (1,1,1) circle (1pt) node[anchor=west] {P};
+    \filldraw[red] (2,2,0) circle (2pt) node[anchor=west] {$q$};
+    \filldraw[red] (2,0,0) circle (2pt) node[anchor=west] {$q$};
+    \filldraw[red] (0,2,0) circle (2pt) node[anchor=west] {$q$};
+    \filldraw[red] (0,0,0) circle (2pt) node[anchor=west] {$q$};
+    \filldraw[red] (2,2,2) circle (2pt) node[anchor=west] {$q$};
+    \filldraw[red] (2,0,2) circle (2pt) node[anchor=west] {$q$};
+    \filldraw[red] (0,2,2) circle (2pt) node[anchor=west] {$q$};
+    \filldraw[red] (0,0,2) circle (2pt) node[anchor=west] {$q$};
+    \end{tikzpicture}
+  \caption{Diagrama da Questão 4.}
+  \label{fig:ex-4}
+\end{figure}
+O campo sobre o ponto P é dado como a superposição dos campos de cada
+uma das partículas. Por exemplo, para a partícula 1, situada na origem,
+o campo é
+\begin{align}
+  \mathbf{E}_{1P} = \frac{q}{4\pi\varepsilon_0}\frac{\mathbf{d}_{1P}}{|\mathbf{d}_{1P}|^3},
+\end{align}
+tal que \(P=\frac a2(\hat x+\hat y+\hat z)\). Vou convencionar que as
+partículas 5, 6, 7 e 8 seguem a mesma ordem que as partículas 1, 2, 3 e
+4, com a diferença de terem \(z=a\). 
+\begin{align*}
+  \mathbf{d}_{1P} &= \frac a2(1,1,1) - (0,0,0)
+                    = \frac a2(\hat x+\hat y+\hat z),\\
+  % ----------------------------------------
+  \mathbf{d}_{2P} &= \frac a2(1,1,1) - (0,a,0)
+                    = \frac a2(\hat x-\hat y+\hat z),\\
+  % ----------------------------------------
+  \mathbf{d}_{3P} &= \frac a2(1,1,1) - (a,0,0)
+                    = \frac a2(-\hat x+\hat y+\hat z),\\
+  % ----------------------------------------
+  \mathbf{d}_{4P} &= \frac a2(1,1,1) - (a,a,0)
+                    = \frac a2(-\hat x-\hat y+\hat z),\\
+  % ----------------------------------------
+  \mathbf{d}_{5P} &= \frac a2(1,1,1) - (0,0,a)
+                    = \frac a2(\hat x+\hat y-\hat z),\\
+  % ----------------------------------------
+  \mathbf{d}_{6P} &= \frac a2(1,1,1) - (0,a,a)
+                    = \frac a2(\hat x-\hat y-\hat z),\\
+  % ----------------------------------------
+  \mathbf{d}_{7P} &= \frac a2(1,1,1) - (a,0,a)
+                    = \frac a2(-\hat x+\hat y-\hat z),\\
+  % ----------------------------------------
+  \mathbf{d}_{8P} &= \frac a2(1,1,1) - (a,a,a)
+                    = \frac a2(-\hat x-\hat y-\hat z).
+\end{align*}
+Veja que todas as distâncias têm mesmo módulo \(\frac{a\sqrt3}2\), pois as
+distâncias têm apenas os versores distintos. Assim, o campo elétrico no
+centro do cubo pode ser escrito como
+\begin{align*}
+  \mathbf{E}_P = \frac{q}{4\pi\varepsilon_0} \frac{8}{3\sqrt3a^3}\sum_{i=1}^8 \mathbf{d}_{iP}.
+\end{align*}
+Como as cargas são todas equidistantes e temos, para cada
+direção, quatro no sentido positivo do eixo e quatro no sentido
+negativo, veja que a soma das distâncias se anula. Desta forma, o campo
+elétrico total \(\mathbf E_P\) no ponto P é nulo. Isso acontece pois as
+partículas em cada diagonal do cubo geram um campo no ponto P de mesmo
+módulo e direção, mas sentidos opostos.
+
+\section{Questão 5}
+\label{sec:orgd044cda}
+Na situação da questão 4, sem fazer contas, usando apenas argumentos
+gerais, identifique a direção e o sentido do campo elétrico no ponto
+\((a/2,a/2,0)\). 
+
+Inicialmente, veja que as cargas nas diagonais do quadrado com \(z=0\) são
+equidistantes do ponto em questão, gerando campos elétricos de igual
+intensidade e direção, mas sentidos opostos. Portanto, o efeito destas
+cargas no ponto é nulo.
+
+Para as cargas no quadrado com \(z=2\), nas direções \(x\) e \(y\), os campos
+são nulos por simetria. Contudo, todas elas geram um campo em \(-\hat
+z\), que não se anula. Este, portanto, é o sentido do campo.  
+\section{Questão 6}
+\label{sec:orge3facd3}
+Repita o problema 5, mas identifique agora a direção e o sentido do
+campo elétrico no ponto \((a,a/2,a/2)\).
+
+A mesma análise da questão 5 pode ser aplicada aqui. Veja que as cargas
+no quadrado de \(x=a\) são equidistantes do ponto, gerando campos
+elétricos que se anulam. Contudo, as cargas de \(x=0\) produzem campos
+cujas componentes em \(y\) e \(z\) são nulas, mas se somam na componente
+\(\hat x\), sendo este o sentido do campo. 
+\section{Questão 7}
+\label{sec:orgb77d051}
+Tem-se de novo um sistema cartesiano tridimensional. Um anel muito
+delgado está carregado uniformemente com carga \(q\). O seu raio é \(R\) e
+ele está posicionado no plano \(z=0\), com centro na origem. Considere
+agora um ponto P sobre o eixo \(z\), na posição \((0,0,z)\). Empregue
+argumentos gerais para identificar a direção e o sentido do campo
+elétrico em P.
+
+\begin{figure}[h!]
+  \centering
+  \begin{tikzpicture}
+    \draw[thick] (0,0) ellipse (2cm and 1cm);
+    \draw[dashed] (0,0) -- (2,0);
+    \node[anchor=south] at (1,0) {$R$};
+    \filldraw[->] (0,0) -- (0,2.5) node[anchor=south] {$z$}; 
+    \filldraw[black] (0,1.75) circle (1pt) node[anchor=east] {$P$};
+  \end{tikzpicture}
+  \caption{Diagrama da Questão 7.}
+  \label{fig:ex-7}
+\end{figure}
+
+Veja que um ponto qualquer do anel terá a distância ao ponto P dada como
+\(x^2+y^2+z^2=R^2+z^2\). Assim, independentemente do ponto do anel que
+pegarmos, ele será equidistante de P e terá um ponto diametralmente
+oposto, com mesma carga e distância. Assim, seus campos nas direções
+radiais se cancelam mutuamente, um por um. Contudo, na direção \(\hat z\),
+tais pontos têm campos em mesma direção e sentido, se somando. Desta
+forma, o campo em P deve ter a direção e sentido como \(\hat z\)
+(vertical, para cima).
+\section{Questão 8}
+\label{sec:orgd01e726}
+Nas condições da questão 7, calcule o campo elétrico no ponto
+P. \emph{Sugestão: divida o anel em N segmentos iguais, de tamanho}
+\emph{\(2\pi R/N\). A partir do resultado da questão 7, você sabe a direção em}
+\emph{que está o campo no ponto P. Basta portanto calcular a componente do}
+\emph{campo nessa direção. Mostre, por argumentos gerais, que cada segmento do}
+\emph{anel dá a mesma contribuição para a componente do campo nessa}
+\emph{direção. Basta portanto calcular o campo devido a um dos segmentos}
+\emph{(escolha um que facilite o cálculo) e multiplicar o resultado por N.}
+
+Já que o anel é uniformemente carregado com carga \(q\), podemos definir N
+elementos de carga distribuídos pelo anel com carga $$ dq = q/N$$. A
+distância de tal ponto é dada por \(\mathbf d = x\hat x+y\hat y+z\hat z\),
+com \(x^2+y^2 = R^2\). O módulo da distância é então \(|\mathbf
+d|=\sqrt{R^2+z^2}\). A componente \(\hat z\) do campo, que é a única não
+nula, pode ser calculada como
+\begin{align*}
+  \mathbf E_{dq} = \frac{dq}{4\pi\varepsilon_0}\frac{z\hat z}{(\sqrt{R^2+z^2})^3},
+\end{align*}
+que não depende de \(x\) e \(y\) e é válido para todos os elementos de
+carga. Multiplicando por N e usando que \(Ndq = q\),
+\begin{align*}
+  \mathbf E &= \frac{Ndq}{4\pi\varepsilon_0}\frac{z\hat z}{(\sqrt{R^2+z^2})^3}\\
+            &= \frac{q}{4\pi\varepsilon_0}\frac{z\hat z}{(\sqrt{R^2+z^2})^3}.
+\end{align*}
+
+De maneira alternativa, poderíamos não ter considerado nenhum elemento
+de simetria, e integrado tal campo para obter o mesmo
+resultado. Considere a figura abaixo.
+\begin{figure}[h!]
+  \centering
+  \begin{tikzpicture}
+    \draw[thick] (0,0) circle (2);
+    \draw[dashed] (0,0) -- (2,0);
+    \draw (0,0) -- (1,1.73205080757);
+    \draw (0.5,0) arc (0:60:0.5);
+    \node[anchor=north] at (0.7,0.6) {$\theta$};
+  \end{tikzpicture}
+  \caption{Diagrama para alternativa à questão 8.}
+  \label{fig:ex-8}
+\end{figure}
+
+Utilizando o ângulo \(\theta\), podemos escrever qualquer ponto do anel
+com \(x=R\cos\theta\), \(y=R\sin\theta\). Assim, podemos integrar sobre
+\(\theta\), de \(0\) a \(2\pi\). O elemento de carga \(dq = qd\theta/2\pi\),
+identificado por um certo ângulo \(\theta\), gera um campo
+\begin{align*}
+  d\mathbf E &= \frac{qd\theta}{8\pi^2\varepsilon_0}
+               \frac{R^2(\cos\theta\hat x+\sin\theta\hat y)+z\hat{z}}
+               {\sqrt{R^2+z^2}^3}.
+\end{align*}
+Integrando em \(\theta\), de 0 a 2\(\pi\), as componentes \(x\) e \(y\) têm
+integrais de seno e cosseno sobre um ciclo inteiro. 
+\begin{align*}
+  \int_0^{2\pi} d\theta\sin\theta &= -\cos\theta\Big\vert_0^{2\pi} = 0\\
+  \int_0^{2\pi} d\theta\cos\theta &= \sin\theta\Big\vert_0^{2\pi} = 0.
+\end{align*}
+A integral em \(\hat z\), por outro lado, não depende de \(\theta\), tal que
+a integral resulta em 2\(\pi\). Portanto, 
+\begin{align*}
+  \mathbf E &= \frac{q}{4\pi\varepsilon_0}\frac{z\hat z}{(\sqrt{R^2+z^2})^3}.
+\end{align*}
+\section{Questão 9}
+\label{sec:orgf9a26a1}
+O seu corpo é composto por prótons, nêutrons e elétrons. Estime o número
+de elétrons e a carga negativa existente em seu corpo. \emph{Sugestão: o}
+\emph{número de elétrons é igual ao de prótons. Para estimar o número de}
+\emph{prótons, suponha que ele é aproximadamente igual ao número de}
+\emph{nêutrons. Encontre na internet a massa do próton (praticamente igual à}
+\emph{do nêutron) e divida sua massa pela massa do próton multiplicada por}
+\emph{dois para encontrar o número de prótons.}
+
+\begin{verbatim}
+minha_massa = 83 kilogram 
+massa_proton = 1.67e-27 kilogram 
+n_protons = 2.48e+28 dimensionless = n_eletrons
+carga_eletron = -1.6e-19 coulomb
+carga_negativa_total = -3.98e+09 coulomb
+\end{verbatim}
+
+\section{Questão 10}
+\label{sec:org5d589e2}
+Suponha que houvesse um desequilíbrio e um em cada milhão dos seus
+elétrons fosse parar em outra pessoa, a um quilômetro de distância. Qual
+seria a força elétrica entre vocês dois?
+
+Caso um a cada milhão de meus elétrons tenha saído de meu corpo,
+teríamos um total de \(2.48\cdot10^{22}\) elétrons fora de meu corpo, me
+deixando com uma carga positiva de \(Q=3.98\cdot10^3\) C. A outra pessoa
+teria uma carga negativa de mesma intensidade. A força elétrica entre
+nós seria
+\begin{align*}
+  F = -\frac{Q^2}{4\pi\varepsilon_0r^{2}}.
+\end{align*}
+Com \(\varepsilon_0\approx8.85\cdot10^{-12}\) C\(^{\text{2}}\)N\(^{\text{-1}}\)m\(^{\text{-2}}\), e a
+distância \(r=1\) km, tal força teria intensidade
+\begin{verbatim}
+F = -1.42e+11 newton
+\end{verbatim}
+\end{document}
