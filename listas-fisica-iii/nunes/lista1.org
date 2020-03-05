@@ -1,11 +1,13 @@
-#+author: Nícolas Morazotti
+#+author: Nícolas André da Costa Morazotti
 #+title: Lista 1
 #+exclude_tags: noexport
-#+options: toc:nil
+#+options: toc:nil ':t
 * preamble :noexport:
+#+latex_class: article
 #+latex_header: \usepackage{tikz}
 #+language:pt
 #+latex_header: \usepackage[AUTO]{babel}
+#+latex_header: \usepackage[margin=1in]{geometry}
 * Questão 1
 Considere um sistema cartesiano tridimensional e um cubo imaginário de
 lado $a$ posicionado de forma que um dos vértices esteja na origem, com
