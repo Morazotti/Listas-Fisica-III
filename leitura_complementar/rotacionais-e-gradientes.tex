@@ -1,0 +1,119 @@
+% Created 2020-04-03 Fri 02:38
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage[portuguese]{babel}
+\usepackage[margin=1in]{geometry}
+\date{\today}
+\title{Rotacionais e gradientes}
+\hypersetup{
+ pdfauthor={},
+ pdftitle={Rotacionais e gradientes},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 26.3 (Org mode 9.1.9)}, 
+ pdflang={Portuguese}}
+\begin{document}
+
+\maketitle
+Podemos entender o que ocorre ao calcularmos o rotacional de um campo da
+seguinte maneira: suponha um campo \(\mathbf A = xy(\hat x+\hat y+\hat
+z)\). Primeiramente, definimos o campo:
+
+\begin{verbatim}
+import numpy as np
+from sympy import *
+from sympy.physics.vector import ReferenceFrame, curl, divergence, gradient
+
+S = ReferenceFrame('S')
+A = (S[0]*S[1])*(S.x+S.y+S.z)
+vars = [S[0],S[1],S[2]]
+A
+\end{verbatim}
+
+$\displaystyle S_{x} S_{y}\mathbf{\hat{s}_x} + S_{x} S_{y}\mathbf{\hat{s}_y} + S_{x} S_{y}\mathbf{\hat{s}_z}$
+
+Veja que podemos calcular o rotacional de \(\mathbf A\) referente ao
+referencial \(S\) com \texttt{curl(A,S)}:
+\begin{verbatim}
+curl(A,S)
+\end{verbatim}
+
+$\displaystyle S_{x}\mathbf{\hat{s}_x} -  S_{y}\mathbf{\hat{s}_y} + (- S_{x} + S_{y})\mathbf{\hat{s}_z}$
+
+Desejamos plotar o campo \(\mathbf A\) e seu rotacional num plano \(z=0\). 
+\begin{verbatim}
+import matplotlib.pyplot as plt
+from matplotlib.pyplot import figure
+figure(dpi=300)
+
+X,Y = np.mgrid[-4:4:100j,-4:4:100j]
+U = lambdify(vars,A.dot(S.x),modules='numpy')
+V = lambdify(vars,A.dot(S.y),modules='numpy')
+plt.streamplot(Y,X, U(X,Y,0), V(X,Y,0))
+plt.title(r'Campo $\mathbf{A} = xy(\hat{x}+\hat{y}+\hat{z})$')
+plt.xlabel(r'x')
+plt.ylabel(r'y')
+plt.show()
+\end{verbatim}
+
+\begin{center}
+\includegraphics[width=.9\linewidth]{./.ob-jupyter/43d316de40283c44695830cfba0f8ecfad906438.png}
+\end{center}
+\begin{verbatim}
+U = lambdify(vars,curl(A,S).dot(S.x),modules='numpy')
+V = lambdify(vars,curl(A,S).dot(S.y),modules='numpy')
+plt.streamplot(Y,X, U(X,Y,0), V(X,Y,0))
+plt.title(r'$\nabla\times\mathbf{A}$')
+plt.xlabel(r'x')
+plt.ylabel(r'y')
+plt.show()
+\end{verbatim}
+
+\begin{center}
+\includegraphics[width=.9\linewidth]{./.ob-jupyter/4edf476308f0b5a8649586320674ef65e4020ad6.png}
+\end{center}
+
+Se tivéssemos definido o campo \(\mathbf A\) como um gradiente de um campo
+escalar \(f=xy\),
+\begin{verbatim}
+f = S[0]*S[1]
+A = gradient(f,S)
+A
+\end{verbatim}
+
+$\displaystyle S_{y}\mathbf{\hat{s}_x} + S_{x}\mathbf{\hat{s}_y}$
+
+\begin{verbatim}
+U = lambdify(vars,A.dot(S.x),modules='numpy')
+V = lambdify(vars,A.dot(S.y),modules='numpy')
+plt.streamplot(Y,X, U(X,Y,0), V(X,Y,0))
+plt.title(r'$\mathbf{A}=\nabla f$')
+plt.xlabel(r'x')
+plt.ylabel(r'y')
+plt.show()
+\end{verbatim}
+
+\begin{center}
+\includegraphics[width=.9\linewidth]{./.ob-jupyter/cbf904adf44fd782d970be8c5bb5abc08d26473b.png}
+\end{center}
+De tal modo que \(\nabla\times A=0\):
+\begin{verbatim}
+curl(A,S)
+\end{verbatim}
+
+$\displaystyle 0$
+\end{document}

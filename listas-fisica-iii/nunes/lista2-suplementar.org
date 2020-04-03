@@ -1,0 +1,408 @@
+#+title: Lista Suplementar 2
+#+author: Nícolas André da Costa Morazotti
+#+email: nicolas.morazotti@gmail.com
+#+exclude_tags: noexport
+#+options: toc:nil
+* preambulo                                                        :noexport:
+#+latex_header: \usepackage{tikz}
+#+language:pt
+#+latex_header: \usepackage[AUTO]{babel}
+#+latex_header: \usepackage[margin=1in]{geometry}
+#+latex_header: \renewcommand{\thesection}{Questão}
+
+* 1
+Duas superfícies planas horizontais estão separadas por uma distância
+$d$. A superfície de cima tem densidade de carga $\sigma$, e a de baixo tem
+densidade $-\sigma$. Desenhe as linhas de força nas três regiões do
+espaço: entre as superfícies, acima da superior e abaixo da
+inferior. Calcule a diferença de potencial entre as superfícies.
+
+Vamos colocar o centro do sistema de coordenadas de forma que as placas
+estejam em $\pm d/2$. Como sabemos, seus campos são constantes. Então, a
+placa de cima gera um campo $\hat z\sigma/2\varepsilon_0$ para $z>d/2$ e $-\hat z\sigma/2\varepsilon_0$
+para $z<d/2$. De forma similar, a placa de baixo gera um campo de mesmo
+módulo, mas sentidos distintos: $-\hat z\sigma/2\varepsilon_0$ para $z>-d/2$ e $\hat
+z\sigma/2\varepsilon_0$ para $z<-d/2$. Então, temos três regiões: abaixo da placa de
+baixo, o campo é $\sigma/2\varepsilon_0(-\hat z + \hat z)= 0$. Acima da placa de cima,
+$\sigma/2\varepsilon_0(\hat z - \hat z) - 0$. Entre as placas, $\sigma/2\varepsilon_0 (-\hat z -\hat
+z) = -\hat z\sigma/\varepsilon_0$. 
+
+#+begin_src jupyter-python :session py :exports results :results raw drawer :async yes :eval never-export
+  import numpy as np
+  import matplotlib.pyplot as plt
+  from matplotlib.pyplot import figure
+  %matplotlib Inline
+  figure(dpi=300)
+
+
+  x = np.linspace(-2,2,15)
+  placa_1 = [1/2 for i in x]
+  placa_2 = [-1/2 for i in x]
+
+  plt.plot(x,placa_1, 'r-',lw=4)
+  plt.plot(x,placa_2, 'b-',lw=4)
+  plt.ylim([-1,1])
+  plt.ylabel(r'$z/d$')
+  plt.xlabel(r'$x/d$')
+  plt.title(r'Esquema das linhas de força nas três regiões.')
+  plt.legend([r'$\sigma$',r'$-\sigma$'])
+  for i in x:
+      if i == -2 or i == 2:
+          continue
+      plt.arrow(i,1/2,0,-1,head_width=0.05,length_includes_head=True,ls='--',fc='k',ec='k')
+
+#+end_src 
+
+#+RESULTS:
+:RESULTS:
+[[file:./.ob-jupyter/e383ddf32f295ed09e95802221859516f2185389.png]]
+:END:
+
+Para calcular a diferença de potencial entre as cargas, podemos utilizar
+a integral $V(A)-V(B)=-\int_B^A \mathbf E\cdot d\mathbf r$, onde $A$ é um ponto
+na placa de cima, $B$ é um ponto na placa de baixo, com mesmo $(x,y)$
+para que possamos fazer um caminho retilíneo com $d\mathbf r = -\hat
+zdz$. A integração ocorre então de $-d/2$ a $d/2$. Então,
+#+BEGIN_EXPORT latex
+\begin{align*}
+  V(cima) - V(baixo)
+  &= -\int_{baixo}^{cima} \mathbf E\cdot d\mathbf{r}\\
+  &= -\frac{\sigma}{\varepsilon_0}\int_{-d/2}^{d/2}dz\\
+  &= -\frac{\sigma d}{\varepsilon_0}.
+\end{align*}
+#+END_EXPORT
+
+* 2
+Um dipolo tem momento $\mathbf p = (2qd)\hat z$. Desenhe as linhas de
+força que saem e entram no dipolo. 
+
+#+BEGIN_SRC jupyter-python :session py :exports results :results raw drawer :eval never-export :async yes 
+  from matplotlib.pyplot import streamplot
+  d = 5e-3
+  y,z = np.mgrid[-3:3:100j,-3:3:100j]
+  U = y+z
+  V = y-z
+#+END_SRC
+
+#+RESULTS:
+:RESULTS:
+:END:
+
+#+BEGIN_SRC jupyter-python :session py :exports both :results raw drawer :eval never-export :async yes 
+  import numpy as np
+  import matplotlib.pyplot as plt
+  from matplotlib.pyplot import figure
+  figure(dpi=300,figsize=(6,3))
+
+  d=0.5
+  Z, Y = np.mgrid[-1.5:1.5:100j, -4:4:100j] 
+  U = Y/(Y**2 + (Z-d)**2)**(3/2) - Y/(Y**2 + (Z+d)**2)**(3/2) 
+  V = (Z-d)/(Y**2 + (Z-d)**2)**(3/2) - (Z+d)/(Y**2 + (Z+d)**2)**(3/2) 
+
+  plt.arrow(0,-d,0,2*d,length_includes_head=True, head_width=0.05,ec='k',fc='k')
+  plt.streamplot(Y, Z, U, V, density=[1.5, 1],color=V,cmap='autumn')
+  plt.title(r'Diagrama das linhas de força de um dipolo, de distância $2d$, em $x=0$')
+  plt.xlabel(r'y/2d')
+  plt.ylabel(r'z/2d')
+  plt.show()
+#+END_SRC
+
+#+RESULTS:
+:RESULTS:
+[[file:./.ob-jupyter/6b94e8f43d9a94c4ddf2c52a2d9e8c248644fcdf.png]]
+:END:
+
+* 3
+Calcule o campo elétrico produzido pelo dipolo do item (2) no ponto com
+coordenadas $(x,y,0)$. /Sugestão: o campo elétrico no plano $z=0$ é/
+/paralelo a $\hat z$. Basta calcular $\partial V / \partial z$./
+
+O potencial de um dipolo $\mathbf p=2qd\hat z$ pode ser escrito como
+#+BEGIN_EXPORT latex
+\begin{align}
+  V(\mathbf r) &= \frac{\mathbf p\cdot\mathbf r}{4\pi\varepsilon_0|\mathbf r|^3}\\
+               &= \frac{pz}{4\pi\varepsilon_0|\mathbf r|^3}\\
+               &= \frac{pz}{4\pi\varepsilon_0(x^2+y^2+z^2)^{3/2}}\\
+  \frac{\partial}{\partial z}V(\mathbf r) &= \frac{p}{4\pi\varepsilon_0(x^2+y^2+z^2)^{3/2}} +
+                              \frac{pz}{4\pi\varepsilon_0}\frac{\partial}{\partial
+                              z}(x^2+y^2+z^2)^{-3/2}\\  
+               &= \frac{p}{4\pi\varepsilon_0(x^2+y^2+z^2)^{3/2}} +
+                              \frac{pz}{4\pi\varepsilon_0}\frac{(-6)z}{2(x^2+y^2+z^2)^{5/2}}\\
+               &= \frac{p}{4\pi\varepsilon_0(x^2+y^2+z^2)^{3/2}} -
+                              \frac{3pz^2}{4\pi\varepsilon_0(x^2+y^2+z^2)^{5/2}}.\label{eq:3}
+\end{align}
+#+END_EXPORT
+No ponto $\mathbf r=x\hat x+y\hat y$, o segundo termo se cancela ao
+fazer $z=0$. O campo elétrico é então
+#+BEGIN_EXPORT latex
+\begin{align}
+  \mathbf E(x,y,0) = -\hat z \frac{qd}{2\pi\varepsilon_0(x^2+y^2)^{3/2}}.
+\end{align}
+#+END_EXPORT
+* 4
+Calcule o campo elétrico produzido pelo dipolo do item (2) no ponto com
+coordenadas $(0,0,z)$ a partir da lei de Coulomb aplicada a cada uma das
+cargas do dipolo.
+
+Colocando a carga $-2q$ na origem e a carga $2q$ a uma distância $d$ da
+carga negativa, o campo elétrico, pela lei de Coulomb, é
+#+BEGIN_EXPORT latex
+\begin{align}
+  \mathbf E(\mathbf r) &= \frac{2q}{4\pi\varepsilon_0}\left\{-\frac{\mathbf r}
+                         {(x^2+y^2+z^2)^{3/2}}
+                         +\frac{\mathbf r - d\hat z}
+                         {[x^2+y^2+(z-d)^2]^{3/2}}\right\}\\
+  \mathbf E(0,0,z) &= \frac{2q}{4\pi\varepsilon_0}\left[
+                     -\frac{z\hat z}{z^3}+\frac{(z-d)\hat z}{(z-d)^3}
+                     \right]\\
+                       &= \frac{q\hat z}{2\pi\varepsilon_0}\left[
+                         -\frac{1}{z^2}+\frac{1}{(z-d)^2}
+                         \right].\label{eq:2}
+\end{align}
+#+END_EXPORT
+Podemos expandir o termo $(z-d)^{-2}$, utilizando $d/z\ll 1$:
+#+BEGIN_EXPORT latex
+\begin{align}
+  (z-d)^{-2} = \frac {1}{z^2}(1-d/z)^{-2} \approx \frac{1}{z^2}(1+2 d/z) = \frac 1{z^2}+2\frac d{z^3}.
+\end{align}
+#+END_EXPORT
+Substituindo na equação ref:eq:2, temos
+#+BEGIN_EXPORT latex
+\begin{align}
+  \mathbf E(0,0,z) &\approx \frac{q\hat z}{2\pi\varepsilon_0}\left[
+                         -\frac{1}{z^2}+\frac{1}{z^2}
+                         +2\frac d{z^3}
+                         \right]\\
+                   &= \hat z\frac{qd}{\pi\varepsilon_0z^3}.\label{eq:5}
+\end{align}
+#+END_EXPORT
+
+* 5
+Calcule o campo elétrico produzido do item (2) no ponto com coordenadas
+$(0,0,z)$ a partir da expressão para o potencial do dipolo.
+
+A partir do potencial do dipolo, temos a expressão ref:eq:3. Veja que as
+componentes $\hat{x}$ e $\hat{y}$ do gradiente são:
+#+BEGIN_EXPORT latex
+\begin{align}
+  \frac{\partial}{\partial x}V(x,y,z) &= \frac{\mathbf p}{4\pi\varepsilon_0}\cdot\frac{\partial}{\partial
+                          x}\frac{x\hat x+y\hat y+z\hat z} {(x^2+y^2+z^2)^{3/2}}  \\
+                        &=\frac{\mathbf p\cdot \mathbf r}{4\pi\varepsilon_0}
+                          \left[-\frac{6x}{2(x^2+y^2+z^2)^{5/2}}\right]
+                          + \frac{p_x}{4\pi\varepsilon_0(x^2+y^2+z^2)^{3/2}}.
+\end{align}
+#+END_EXPORT
+Como o dipolo aponta na direção $z$, $p_x \equiv 0$. O primeiro termo,
+com $x=0$, é $0$. De maneira similar, poderíamos ter calculado a
+componente $\hat y$ do gradiente. A diferença é que teríamos $6y$ ao
+invés de $6x$, que também se anula, e $p_y$, que também é $0$. Então só
+temos a componente $z$ do campo, que é a componente obtida na equação ref:eq:3.
+Calculando tal equação no ponto $(0,0,z)$
+#+BEGIN_EXPORT latex
+\begin{align}
+  \frac{\partial}{\partial z}V(0,0,z) &= \frac{2qd}{4\pi\varepsilon_0 z^3}-\frac{3\cdot2qdz^2}{4\pi\varepsilon_0z^5}\\
+                        &= \frac{qd}{2\pi\varepsilon_0 z^3}-\frac{3qd}{2\pi\varepsilon_0z^3}\\
+                        &= \frac{qd}{2\pi\varepsilon_0 z^3}(1-3)\\
+                        &= -\frac{qd}{\pi\varepsilon_0 z^3}.\label{eq:4}
+\end{align}
+#+END_EXPORT
+Como $\mathbf E=-\nabla V$, trocamos o sinal da equação ref:eq:4 e chegamos à
+equação ref:eq:5.
+* 6
+Uma esfera de raio $R$ tem densidade volumétrica de carga uniforme,
+igual a $\rho$. Encontre o potencial eletrostático em função da distância
+$r>R$, medida a partir do centro da esfera. /Sugestão: Fora da esfera, o/
+/potencial equivale ao da carga da esfera concentrada em seu centro./
+
+Para fora da esfera, podemos utilizar como se o potencial fosse de uma
+carga pontual centrada na origem. A carga total da esfera é $Q = 4\pi R^3
+\rho/3$. Assim,
+#+BEGIN_EXPORT latex
+\begin{align}
+  V(r) &= \frac{Q}{4\pi\varepsilon_0}\frac{1}{r}\\
+       &= \frac{\rho}{3\varepsilon_0}\frac{R^3}{r}.
+\end{align}
+#+END_EXPORT
+
+* 7
+Repita o problema anterior, mas agora calcule o potencial em função da
+distância $r<R$. /Sugestão: Dentro da esfera, o campo elétrico é/
+/$E(r)=(1/3\varepsilon_0)\rho r$. A diferença de potencial entre o ponto a distância/
+/$r$ do centro e a superfície da esfera é $\int_r^R E(r')dr'$./
+
+Para calcular a diferença de potencial entre um ponto a uma distância
+$r<R$ do centro da esfera, vamos substituir o campo elétrico
+$E(r)$. Vamos utilizar que o potencial elétrico é um campo escalar
+*contínuo* no espaço. Assim, podemos afirmar que $V(R) = V_{fora}(R)$.
+#+BEGIN_EXPORT latex
+\begin{align}
+  V(r) - V(R) &= \int_r^R E(r')dr'\\
+  V(r) - \frac{\rho R^2}{3\varepsilon_0}
+              &= \frac {\rho}{3\varepsilon_0}\int_r^R r'dr'\\
+              &= \frac {\rho}{3\varepsilon_0}\frac{r'^2}2\Big\vert_r^R\\
+              &= \frac {\rho}{6\varepsilon_0}(R^2-r^2)\\
+  V(r) &= \frac{\rho}{3\varepsilon_0}R^2 + \frac {\rho}{6\varepsilon_0}R^2-\frac{\rho}{6\varepsilon_0}r^2\\
+              &= \frac{\rho}{2\varepsilon_0}R^2 -\frac{\rho}{6\varepsilon_0}r^2.
+\end{align}
+#+END_EXPORT
+
+#+BEGIN_SRC jupyter-python :session py :exports results :results raw drawer :eval never-export :async yes 
+  from matplotlib.pyplot import figure
+  figure(dpi=400)
+  def V_sphere(r):
+      return np.where( r>1, 1/(3*r), 1/2-r**2/6)
+
+  r_dentro = np.linspace(0.1,1,50)
+  r_fora = np.linspace(1,2,50)
+  plt.plot(r_dentro,V_sphere(r_dentro))
+  plt.plot(r_fora,V_sphere(r_fora))
+  plt.legend([r'$r<R$',r'$r>R$'])
+  plt.xlabel(r'$r/R$')
+  plt.ylabel(r'$\frac{\varepsilon_0}{\rho} V$')
+  plt.title('Potencial elétrico em função da distância ao centro da esfera.')
+  a=1
+#+END_SRC
+
+#+RESULTS:
+:RESULTS:
+[[file:./.ob-jupyter/ac6eb2316473ad7ba6d522e3782925c97b761550.png]]
+:END:
+
+* 8
+Uma barra cilíndrica metálica infinita tem raio $a$ e densidade
+superficial de carga $\sigma$. Encontre o campo elétrico num ponto P fora da
+barra, a uma distância $r>a$ do eixo da barra.
+
+#+BEGIN_EXPORT latex
+\begin{figure}[h!]
+  \centering
+  \begin{tikzpicture}
+    \draw (0.5,2)  arc (0:360:0.5 and 0.2);
+    \draw[dashed] (0.5,-2) arc (0:180:0.5 and 0.2);
+    \draw (0.5,-2) arc (0:-180:0.5 and 0.2);
+    \draw (0.5,2) -- (0.5,-2);
+    \draw (-0.5,2) -- (-0.5,-2);
+    \draw[dashed] (0,2) -- (0,-2.2);
+    \draw (0,2) -- (0,2.5);
+    \draw (0,-2.2) -- (0,-2.5);
+    \filldraw[black] (1.5,0) circle (1pt) node[right] {$P$};
+    \draw[<->] (0,2.3) -- (0.5,2.3) node[above left] {$a$};
+    \node[left] at (-0.5,0) {$\sigma$};
+  \end{tikzpicture}
+  \caption{Diagrama das questões 8 e 9.}
+  \label{fig:ex-8}
+\end{figure}
+#+END_EXPORT
+
+Para encontrar o campo elétrico no ponto $P$, podemos utilizar uma
+superfície gaussiana cilíndrica de altura $L$ e raio $r$. Pela lei de
+Gauss,
+#+BEGIN_EXPORT latex
+\begin{align}
+  E 2\pi rL &= \frac{\sigma 2\pi a L}{\varepsilon_0}\\
+  E &= \frac{\sigma a}{\varepsilon_0 r}\\
+  \mathbf E &= \frac{\sigma a}{\varepsilon_0 r}\hat r\label{eq:1}.
+\end{align}
+#+END_EXPORT
+
+* 9
+A partir do resultado da questão anterior, calcule o potencial no mesmo
+ponto P, isto é, a uma distância $r<a$ do centro da barra. /Sugestão:/
+/Tome como referência um ponto $\bar O$ na superfície da barra./
+
+Utilizando o campo da equação ref:eq:1, podemos utilizar um caminho
+radial que sai da casca cilíndrica e vai até $P$, de forma que $d\mathbf
+r = \hat r dr$. Colocando o potencial na casca como nulo (afinal, não
+podemos zerar o potencial com $r\to\infty$), 
+#+BEGIN_EXPORT latex
+\begin{align}
+  V(r) - \underbrace{V(a)}_{\equiv 0}
+  &= -\int_a^r \mathbf E(r')\cdot d\mathbf r'\\
+  V(r) &= -\frac{\sigma a}{\varepsilon_0}\int_a^r \frac{dr'}{r'}\\
+  &= -\frac{\sigma a}{\varepsilon_0}\ln(r')\Big\vert_a^r\\
+  &= -\frac{\sigma a}{\varepsilon_0}\ln\left(\frac{r}{a}\right).
+\end{align}
+#+END_EXPORT
+Internamente ao fio condutor, o campo elétrico é nulo, o que implica que
+o potencial elétrico é constante.
+
+#+BEGIN_SRC jupyter-python :session py :exports results :results raw drawer :eval never-export :async yes 
+  figure(dpi=400)
+  def E_cilinder(r):
+      return np.where(r>1,1/r,0)
+  def V_cilinder(r):
+      return np.where(r>1,-np.log(r),0)
+
+  r = np.linspace(0.01,3,100)
+  plt.plot(r,V_cilinder(r))
+  plt.xlabel(r'$r/a$')
+  plt.ylabel(r'${\frac{\varepsilon_0}{\sigma a}}V$')
+  plt.title(r'Potencial elétrico em função da distância ao centro do cilindro.')
+  a=1
+#+END_SRC
+
+#+RESULTS:
+:RESULTS:
+[[file:./.ob-jupyter/ec2a52051c407f5b9a9a73e4f66607adbbddb7b1.png]]
+:END:
+
+* 10                                                              
+Um dipolo está imerso num campo elétrico uniforme $\mathbf E=E_0 \hat
+z$. O centro do dipolo está na origem do sistema de coordenadas. O
+momento do dipolo está no plano $yz$ e forma um ângulo $\theta$ com a direção
+$\hat z$. Calcule o torque que o campo elétrico produz sobre o
+dipolo. /Sugestão: Calcule a força que cada carga do dipolo sofre, devida/
+/ao campo elétrico, e calcule o torque, que é a soma de/ $\mathbf r_j
+\times \mathbf F_j$, /onde $\mathbf r_j$ é a posição de cada carga e/ $\mathbf
+F_j$ /é a força sobre ela./
+
+#+BEGIN_EXPORT latex
+\begin{figure}[h!]
+  \centering
+  \begin{tikzpicture}
+    \draw[thick,->] (0,0) -- (0,2) node[above] {$z$};
+    \draw[thick,->] (0,0) -- (2,0) node[above] {$y$};
+    \node[above] at (-1.2,1) {$\mathbf E$};
+    \foreach \x in {-2.2,...,2.2}
+        \draw[->] (\x,-0.5) -- (\x,1); 
+    \draw[thick,->] (0,0) -- (0.75,1.5) node[right] {$\mathbf p$};
+    \draw (0,0.5) arc (90:60:0.5);
+    \node[above right] at (-0.1,0.5) {$\theta$};
+    \filldraw[black] (0,0) circle (1.5pt);
+  \end{tikzpicture}
+  \caption{Diagrama do exercício 10.}
+  \label{fig:ex-10}
+\end{figure}
+#+END_EXPORT
+Vamos chamar a distância entre as cargas de $d$, e as cargas de $q$. Uma
+vez que o centro do dipolo se encontra na origem do sistema de
+coordenadas, a posição da carga positiva é
+$(0,d\sin\theta/2,d\cos\theta/2)$ e a da carga negativa é
+$(0,-d\sin\theta,-d\cos\theta)$. A força que o campo elétrico $\mathbf
+E$ faz sobre a carga positiva é $\mahtbf F_+ = \hat z E_0 q$ e sobre a
+carga negativa é $\mahtbf F_- = -\hat z E_0 q$. O torque que o campo faz
+sobre as cargas pode ser escrito como
+#+BEGIN_EXPORT latex
+\begin{align}
+  \boldsymbol \tau &= \mathbf{r}_+\times\mathbf{F}_++\mathbf{r}_-\times\mathbf{F}_-\\
+                &= \frac{E_0qd}{2}[(\sin\theta\hat y+\cos\theta\hat z)\times\hat z +
+                  (-\sin\theta\hat y-\cos\theta\hat z)\times(-\hat z)]\\
+                &= \frac{E_0qd}{2}[\sin\theta\hat x +
+                  \sin\theta\hat x]\\
+                &= \hat x E_0 qd \sin\theta\\
+                &= \hat x E_0 p \sin\theta\\
+                &= \mathbf p\times\mathbf E.
+\end{align}
+#+END_EXPORT
+
+
+
+
+* vars :noexport:
+# Local Variables:
+# eval: (auto-fill-mode)
+# eval: (flyspell-mode)
+# eval: (org-toggle-pretty-entities)
+# eval: (setq org-src-window-setup 'current-window)
+# eval: (LaTeX-math-mode)
+# End:

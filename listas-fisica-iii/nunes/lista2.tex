@@ -1,0 +1,410 @@
+% Created 2020-03-24 Tue 13:20
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage[portuguese]{babel}
+\usepackage[margin=1in]{geometry}
+\renewcommand{\thesection}{Questão}
+\author{Nícolas André da Costa Morazotti}
+\date{\today}
+\title{Lista 2}
+\hypersetup{
+ pdfauthor={Nícolas André da Costa Morazotti},
+ pdftitle={Lista 2},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 26.3 (Org mode 9.1.9)}, 
+ pdflang={Portuguese}}
+\begin{document}
+
+\maketitle
+\section{1}
+\label{sec:org0361fa8}
+Uma carga elétrica \(q\) está na origem de um sistema cartesiano
+tridimensional. Considere um ponto \(A\) com coordenadas \((1,0,0)\) e outro
+ponto \(B\) com coordenadas \((2,0,0)\). Calcule explicitamente a integral
+\(\int_A^B \mathbf E\cdot d\mathbf r\) ao longo da reta que une os pontos \(A\) e \(B\).
+
+\begin{figure}[h!]
+  \centering
+  \begin{tikzpicture}
+    \filldraw[black] (0,0) circle (1pt) node[above] {$q$};
+    \draw[->] (0,0) -- (2.5,0) node[right] {$x$};
+    \draw (1,-0.15) -- (1,0.15) node[above] {$A$};
+    \draw (2,-0.15) -- (2,0.15) node[above] {$B$};
+  \end{tikzpicture}
+  \caption{Diagrama da questão 1.}
+  \label{fig:ex-1}
+\end{figure}
+
+O campo elétrico da carga \(q\), na origem do sistema, até uma posição
+\((x,0,0)\) pode ser escrito como
+\begin{align}
+  \mathbf E(x) = \frac q{4\pi\varepsilon_0}\frac {\hat x}{x^2}.
+\end{align}
+O elemento de linha \(d\mathbf r\), sobre o eixo x, é simplesmente
+\(d\mathbf r=(dx,0,0)\). Assim, o produto \(\mathbf E\cdot d\mathbf r=E_x dx\). 
+\begin{align}
+  \int_A^B\mathbf E\cdot d\mathbf r &= \frac q{4\pi\varepsilon_0}\int_1^2 \frac{dx}{x^2}\\
+                             &= -\frac q{4\pi\varepsilon_0}\frac 1x\Big\vert_1^2\\
+                             &= -\frac q{4\pi\varepsilon_0}\left(\frac 12 -1\right)\\
+                             &= \frac q{8\pi\varepsilon_0}
+\end{align}
+\section{2}
+\label{sec:org8620e40}
+Na condição do problema anterior, calcule a diferença de potencial \(V_B-
+V_A\), a partir da expressão que derivamos para o potencial de um ponto
+próximo de uma carga. Compare o resultado com o do item 1.
+
+Utilizando o potencial eletrostático de uma carga pontual,
+\begin{align}
+  V(\mathbf r; \mathbf r') = \frac q{4\pi\varepsilon_0}\frac 1{|\mathbf r-\mathbf r'|}.
+\end{align}
+
+Como a carga se encontra na origem, \(\mathbf r' = \mathbf 0\). Então, só
+precisamos calcular o potencial em cada um dos pontos.
+\begin{align}
+  V(B) &= \frac q{4\pi\varepsilon_0}\frac 1{|(2,0,0)|}\\
+       &= \frac q{4\pi\varepsilon_0}\frac 1{2}\\
+  V(A) &= \frac q{4\pi\varepsilon_0}\frac 1{|(1,0,0)|}\\
+       &= \frac q{4\pi\varepsilon_0}\\
+  V(B) - V(A) &= \frac q{4\pi\varepsilon_0}\left(\frac12 -1 \right)\\
+              &= -\frac q{8\pi\varepsilon_0},
+\end{align}
+que é o resultado do item 1 com um sinal alternado. Portanto, podemos
+verificar que 
+\begin{align}
+  V(B) - V(A) = -\int_A^B \mathbf E\cdot d\mathbf r.
+\end{align}
+\section{3}
+\label{sec:org82e8994}
+Considere um sistema cartesiano tridimensional e um cubo imaginário de
+lado \(a\) posicionado de forma que um dos vértices esteja na origem, com
+uma das arestas alinhadas com o eixo \(\hat x\), outra com o eixo \(\hat y\)
+e uma terceira com o eixo \(\hat z\). Assim, um dos vértices está na
+posição \((a,0,0)\), outro na posição \((0,a,0)\) e outro na posição
+\((0,0,a)\). Os outros quatro vértices estão nas posições
+\((0,a,a), (a,0,a), (a,a,0)\) e \((a,a,a)\). Posiciona-se uma carga \(q\) no
+vértice \((a,a,a)\) e uma carga \(-q\) na origem do sistema. Calcule o
+potencial elétrico no centro do cubo. 
+
+\begin{figure}[h!]
+  \centering
+  \begin{tikzpicture}
+    \draw[->] (0,0,0) -- (3,0,0) node[right] {$x$};
+    \draw[->] (0,0,0) -- (0,3,0) node[above] {$y$};
+    \draw[->] (0,0,0) -- (0,0,3) node[below left] {$z$};
+    \draw[dashed] (0,0,0) -- (2,0,0) -- (2,2,0) -- (0,2,0) -- (0,0,0);
+    \draw[dashed] (0,0,0) -- (2,0,0) -- (2,0,2) -- (0,0,2) -- (0,0,0);
+    \draw[dashed] (0,0,0) -- (0,2,0) -- (0,2,2) -- (0,0,2) -- (0,0,0);
+    \draw[dashed] (0,2,2) -- (2,2,2) -- (2,0,2);
+    \draw[dashed] (2,2,2) -- (2,2,0);
+    \filldraw[red] (2,2,2) circle (2pt) node[above] {$q$};
+    \filldraw[blue] (0,0,0) circle (2pt) node[above left] {$-q$};
+  \end{tikzpicture}
+  \caption{Diagrama da questão 3.}
+  \label{fig:ex-3}
+\end{figure}
+
+O potencial, devido a uma carga \(q\), posicionada em \(\mathbf r'\), no
+ponto \(\mathbf r\), é
+\begin{align}
+  V(\mathbf r; \mathbf r') = \frac{q}{4\pi\varepsilon_0}\frac{1}{|\mathbf r - \mathbf r'|}.\label{eq:1}
+\end{align}
+Para a carga em \((a,a,a)\), o potencial em \((a/2,a/2,a/2)\) é
+\begin{align}
+  V(a/2,a/2,a/2;a,a,a) &= \frac{q}{4\pi\varepsilon_0}\frac{1}{|(a/2,a/2,a/2) - (a,a,a)|}\\
+                       &= \frac{q}{4\pi\varepsilon_0}\frac{1}{|(-a/2,-a/2,-a/2)|}\\
+                       &= \frac{q}{4\pi\varepsilon_0}\frac{1}{\sqrt{a^2/4+a^2/4+a^2/4}}\\
+                       &= \frac{q}{4\pi\varepsilon_0}\frac{2}{a\sqrt{3}}\\
+                       &= \frac{q}{2\pi\varepsilon_0a\sqrt{3}}.
+\end{align}
+
+Para a carga em \((0,0,0)\), o potencial em \((a/2,a/2,a/2)\) é
+\begin{align*}
+  V(a/2,a/2,a/2;0,0,0) &= -\frac{q}{4\pi\varepsilon_0}\frac{1}{|(a/2,a/2,a/2) - (0,0,0)|}\\
+                       &= -\frac{q}{4\pi\varepsilon_0}\frac{1}{|(a/2,a/2,a/2)|}\\
+                       &= -\frac{q}{4\pi\varepsilon_0}\frac{1}{\sqrt{a^2/4+a^2/4+a^2/4}}\\
+                       &= -\frac{q}{4\pi\varepsilon_0}\frac{2}{a\sqrt{3}}\\
+                       &= -\frac{q}{2\pi\varepsilon_0a\sqrt{3}}.
+\end{align*}
+Ao somarmos ambos os potenciais (podemos fazer isso devido ao princípio
+de superposição), vemos que \(V(a/2,a/2,a/2) = 0\).
+\section{4}
+\label{sec:orgbb32bdc}
+Considerado o cubo da questão 3, posiciona-se uma carga \(q\) em cada um
+dos oito vértices do cubo. Calcule o potencial elétrico no centro do
+cubo.
+
+\begin{figure}[h!]
+  \centering
+  \begin{tikzpicture}
+    \draw[->] (0,0,0) -- (3,0,0) node[right] {$x$};
+    \draw[->] (0,0,0) -- (0,3,0) node[above] {$y$};
+    \draw[->] (0,0,0) -- (0,0,3) node[below left] {$z$};
+    \draw[dashed] (0,0,0) -- (2,0,0) -- (2,2,0) -- (0,2,0) -- (0,0,0);
+    \draw[dashed] (0,0,0) -- (2,0,0) -- (2,0,2) -- (0,0,2) -- (0,0,0);
+    \draw[dashed] (0,0,0) -- (0,2,0) -- (0,2,2) -- (0,0,2) -- (0,0,0);
+    \draw[dashed] (0,2,2) -- (2,2,2) -- (2,0,2);
+    \draw[dashed] (2,2,2) -- (2,2,0);
+    \filldraw[red] (0,0,0) circle (2pt) node[above left] {$1$};
+    \filldraw[red] (2,0,0) circle (2pt) node[above left] {$2$};
+    \filldraw[red] (0,2,0) circle (2pt) node[above left] {$3$};
+    \filldraw[red] (2,2,0) circle (2pt) node[above left] {$4$};
+    \filldraw[red] (0,0,2) circle (2pt) node[above left] {$5$};
+    \filldraw[red] (2,0,2) circle (2pt) node[above left] {$6$};
+    \filldraw[red] (0,2,2) circle (2pt) node[above left] {$7$};
+    \filldraw[red] (2,2,2) circle (2pt) node[above left] {$8$};
+  \end{tikzpicture}
+  \caption{Diagrama da questão 4.}
+  \label{fig:ex-4}
+\end{figure}
+Utilizando a Equação ref:eq:1, temos que
+\begin{align}
+  V(a/2,a/2,a/2;\mathbf r') &= \frac q{4\pi\varepsilon_0}\frac 1{|(a/2,a/2,a/2) -\mathbf r'|}                        
+\end{align}
+As distâncias \(\mathbf r'\) são
+\begin{align}
+  \mathbf r'_1 &= (0,0,0)\nonumber\\
+  \mathbf r'_2 &= (a,0,0)\nonumber\\
+  \mathbf r'_3 &= (0,a,0)\nonumber\\
+  \mathbf r'_4 &= (a,a,0)\nonumber\\
+  \mathbf r'_5 &= (0,0,a)\nonumber\\
+  \mathbf r'_6 &= (a,0,a)\nonumber\\
+  \mathbf r'_7 &= (0,a,a)\nonumber\\
+  \mathbf r'_8 &= (a,a,a)\nonumber\\
+  |(a/2,a/2,a/2) - \mathbf r'_1| &= |(a/2,a/2,a/2)-(0,0,0)|\nonumber\\
+               &=\frac{a\sqrt3}2\nonumber\\
+  |(a/2,a/2,a/2) - \mathbf r'_2| &=\frac{a\sqrt3}2\nonumber\\
+  |(a/2,a/2,a/2) - \mathbf r'_3| &=\frac{a\sqrt3}2\nonumber\\
+  |(a/2,a/2,a/2) - \mathbf r'_4| &=\frac{a\sqrt3}2\nonumber\\
+  |(a/2,a/2,a/2) - \mathbf r'_5| &=\frac{a\sqrt3}2\nonumber\\
+%\end{align}
+%\begin{align}
+  |(a/2,a/2,a/2) - \mathbf r'_6| &=\frac{a\sqrt3}2\nonumber\\
+  |(a/2,a/2,a/2) - \mathbf r'_7| &=\frac{a\sqrt3}2\nonumber\\
+  |(a/2,a/2,a/2) - \mathbf r'_8| &=\frac{a\sqrt3}2\nonumber
+\end{align}
+As distâncias são todas as mesmas, e o potencial é escalar. Portanto,
+basta calcular para uma das partículas e multiplicar por oito.
+\begin{align}
+  V(a/2,a/2,a/2) &= 8V(a/2,a/2,a/2;\mathbf r'_1)\\
+                 &= \frac{2q}{\pi\varepsilon_0}\frac 2{a\sqrt3}\\
+                 &= \frac{4q}{a\sqrt3\pi\varepsilon_0}
+\end{align}
+
+\section{5}
+\label{sec:org410550b}
+Define-se uma \emph{superfície equipotencial} como uma superfície imaginária
+em que todos os pontos têm o mesmo potencial. Por exemplo, todos os
+pontos a uma distância \(R\) de uma carga \(q\) isolada formam uma
+superfície equipotencial. Mostre que a superfície de um metal é sempre
+equipotencial. \emph{Sugestão: lembre-se de que o campo elétrico dentro do}
+\emph{metal é nulo e calcule a integral \(\int_A^B \mathbf E\cdot d\mathbf r\) entre dois}
+\emph{pontos \(A\) e \(B\) quaisquer na superfície do metal.}
+
+Seguindo a sugestão, consideremos um metal qualquer, bem como dois
+pontos da superfície do metal. Uma vez que o rotacional do campo
+elétrico é nulo na eletrostática, a integral \(\int_A^B \mathbf E\cdot d\mathbf
+r\) independe do caminho entre \(A\) e \(B\). A demonstração é apresentada no
+capítulo 4 do Moysés. Então, vamos considerar um caminho que sai do
+ponto \(A\), entra no condutor, e só sai do condutor no ponto \(B\). Assim,
+por todo o caminho, \(\mathbf E\equiv\mathbf0 \Rightarrow \int_A^B \mathbf E\cdot d\mathbf
+r \equiv 0\). Contudo, a integral \(-\int_A^B \mathbf E\cdot d\mathbf r = V(B) - V(A) =
+0\). Ou seja, \(V(A) = V(B)\) para quaisquer dois pontos \(A\) e \(B\) na
+superfície do metal. Assim, a superfície do metal é uma equipotencial.
+\section{6}
+\label{sec:orgd31f9ec}
+Uma carga \(q\) está na origem de um sistema cartesiano. É dada uma
+distância \(a\). Calcule a diferença de potencial entre os pontos \(A =
+(a,a,a)\) (onde \(a\) é uma distância conhecida) e \(B=(b,b,b)\), onde
+\(b=1.01a\).
+
+O potencial em \(A\) com a carga na origem, ainda utilizando a Equação
+ref:eq:1, é
+\begin{align}
+  V(A) &= \frac q{4\pi\varepsilon_0} \frac1{a\sqrt3}.
+\end{align}
+No ponto \(B\),
+\begin{align}
+  V(B) &= \frac q{4\pi\varepsilon_0} \frac1{b\sqrt3}\\
+       &= \frac q{4\pi\varepsilon_0} \frac1{1.01a\sqrt3}.
+\end{align}
+A diferença de potencial entre \(A\) e \(B\) é então
+\begin{align}
+  \Delta V &= \frac q{4\pi\varepsilon_0a\sqrt3} \left(\frac1{1.01}-1\right)\\
+      &= \frac q{4\pi\varepsilon_0a\sqrt3} \left(\frac{1-1.01}{1.01}\right)\\
+      &= -\frac{0.01}{1.01}\frac q{4\pi\varepsilon_0a\sqrt3}.
+\end{align}
+\section{7}
+\label{sec:orgf1ee21e}
+Compare o resultado da questão \(6\) com o produto \(\mathbf E\cdot\Delta\mathbf r\),
+onde \(E\) é o campo elétrico no ponto \(A\) e \(\Delta\mathbf r=\mathbf
+r_B-\mathbf r_A\). Discuta essa comparação.
+
+O campo elétrico, no ponto \(A\), é dado por 
+\begin{align}
+  \mathbf E(A) &= \frac q{4\pi\varepsilon_0} \frac{a(\hat x+\hat y+\hat z)}{(a\sqrt3)^3}\\
+               &= \frac q{4\pi\varepsilon_0} \frac{(\hat x+\hat y+\hat z)}{a^2 3\sqrt3}.
+\end{align}
+O elemento \(\Delta\mathbf r = (b,b,b)-(a,a,a) = 0.01a(\hat x+\hat y+\hat
+z)\). Assim, o produto escalar
+\begin{align}
+  -\mathbf E(A)\cdot\Delta\mathbf r
+  &= -\frac q{12a^2 \sqrt3\pi\varepsilon_0} (\hat x+\hat y+\hat z)\cdot
+    0.01a(\hat x +\hat y+\hat z)\\
+  &= -\frac q{12\pi\varepsilon_0a^2 \sqrt3} (3\cdot0.01a)\\
+  &= -0.01 \frac q{4\pi\varepsilon_0a \sqrt3}.
+\end{align}
+Vemos que \(0.01/1.01 \approx 0.01\). Portanto, o potencial entre dois pontos
+muito próximos pode ser aproximado desta forma. Quanto mais próximos os
+pontos, melhor é a aproximação.
+\section{8}
+\label{sec:org9997e10}
+O potencial de uma carga \(q\) no ponto \(\mathbf r=x\hat x+y\hat y+z\hat
+z\) é \(V=(1/4\pi\varepsilon_0)q/r\). Use a expressão \(\mathbf E= -\nabla V\) para calcular o
+campo elétrico em \(\mathbf r\).
+
+Vamos calcular o gradiente de duas maneiras diferentes. Primeiro,
+utilizando coordenadas cartesianas, substituindo
+\(r=\sqrt{x^2+y^2+z^2}\). Fazendo a derivada em \(x\), temos 
+\begin{align}
+  \frac{\partial}{\partial x} V &= \frac q{4\pi\varepsilon_0} \frac{\partial}{\partial x} (x^2+y^2+z^2)^{-1/2}\\
+                  &= \frac q{4\pi\varepsilon_0} \left(-\frac12\right) (x^2+y^2+z^2)^{-3/2} 2x\\
+                  &= -\frac q{4\pi\varepsilon_0} \frac x{r^3}.
+\end{align}
+Pela simetria de rotação do potencial, podemos trocar \(x\) por \(y\) ou por
+\(z\), e temos então
+\begin{align}
+  \frac{\partial}{\partial y} V &= -\frac q{4\pi\varepsilon_0} \frac y{r^3}\\
+  \frac{\partial}{\partial z} V &= -\frac q{4\pi\varepsilon_0} \frac z{r^3}.
+\end{align}
+Assim, substituímos as derivadas no gradiente:
+\begin{align}
+  \nabla V &= \hat x\frac{\partial}{\partial x} V+\hat y\frac{\partial}{\partial y} V+\hat z\frac{\partial}{\partial z} V\\
+      &= -\frac q{4\pi\varepsilon_0} \frac{x\hat x+y\hat y+z\hat z}{r^3}\\
+      &= -\frac q{4\pi\varepsilon_0} \frac{\mathbf r}{r^3}.
+\end{align}
+Trocando o sinal, obtemos o campo elétrico de uma carga pontual, como já
+conhecíamos a partir da Lei de Coulomb.
+
+Poderíamos ter utilizado, também pela simetria esférica do problema,
+coordenadas \textbf{esféricas}. Como o potencial é radial, o gradiente só tem a
+componente radial da derivada. Assim, \(\nabla V=\hat r\frac{\partial V}{\partial r}\).
+\begin{align}
+  \frac{\partial}{\partial r} V(r) &= \frac q{4\pi\varepsilon_0} \frac{\partial}{\partial r}(r^{-1})\\
+                     &= \frac q{4\pi\varepsilon_0} (-r^{-2})\\
+                     &= -\frac q{4\pi\varepsilon_0} \frac{r}{r^3}.
+\end{align}
+Concluímos que 
+\begin{align}
+  \nabla V &= \hat r\frac{\partial}{\partial r} V(r)\\
+      &= -\frac q{4\pi\varepsilon_0} \frac{\mathbf r}{r^3}.
+\end{align}
+Trocando o sinal, reobtemos o resultado a partir de coordenadas
+cartesianas. 
+
+\section{9}
+\label{sec:orgd8e4bd7}
+Uma carga \(q\) está posicionada no centro de uma casca esférica metálica
+com raio interno \(R\) e raio externo \(2R\), como mostra a figura
+abaixo. Calcule o potencial do ponto \(B\), praticamente encostado na
+superfície de fora da casca. \emph{Sugestão: o campo elétrico fora da casca é}
+\emph{igual ao campo elétrico de uma carga \(q\) no centro da casca. A mesma}
+\emph{afirmação vale para o potencial fora da casca.}
+
+\begin{figure}[h!]
+  \centering
+  \begin{tikzpicture}
+    \draw (-4.5,-4.5) -- (4.5,-4.5) -- (4.5,4.5) -- (-4.5,4.5) -- (-4.5,-4.5);
+    \filldraw[black,opacity=.2] (0,0) circle (4);
+    \filldraw[white] (0,0) circle (2);
+    \filldraw[black] (-1.35,1.35) circle (2.5pt) node[below] {$A$};
+    \filldraw[black] (-2.9,2.9) circle (2.5pt) node[above] {$B$};
+    \draw (0,0) -- (0,2);
+    \node[left] at (0,1) {$R$};
+    \draw (0,0) -- (4,0);
+    \node[above] at (3,0) {$2R$};
+    \filldraw[black!30,opacity=0.8] (0,0) circle (0.3);
+  \end{tikzpicture}
+\end{figure}
+
+Vamos calcular o campo elétrico fora da casca metálica utilizando a Lei
+de Gauss. Temos que
+\begin{align}
+  \mathbf E = \frac {q\hat r}{4\pi\varepsilon_0r^2}.
+\end{align}
+Colocando o zero do potencial para \(r\rightarrow\infty\), e integrando num caminho
+radial, temos
+\begin{align}
+  V &= -\int_\infty^{B}\mathbf E\cdot d\mathbf r\\
+    &= -\frac q{4\pi\varepsilon_0}\int_\infty^{2R+\delta}\frac{dr}{r^2}\\
+    &= \frac q{4\pi\varepsilon_0}r^{-1}\Big\vert_\infty^{2R+\delta}\\
+    &= \frac q{4\pi\varepsilon_0(2R+\delta)}.
+\end{align}
+Jogando \(\delta\rightarrow0\),
+\begin{align}
+   V &= \frac q{8\pi\varepsilon_0R}.
+\end{align}
+
+\section{10}
+\label{sec:orgf6502ce}
+Calcule o potencial no ponto \(A\), praticamente encostado na superfície
+de dentro da casca. Esse potencial é igual ao de um ponto a uma
+distância (praticamente igual a) \(R\) de uma carga \(q\)?
+Explique. \emph{Sugestão: para calcular a diferença de potencial entre \(A\) e}
+\emph{\(B\), lembre-se de que o campo elétrico dentro do metal é nulo.}
+
+Para calcular o potencial no ponto \(A\), podemos empregar a mesma técnica
+do item anterior. Vamos traçar um caminho de \(B\) até \(A\), passando por
+dentro do condutor. Contudo, como dentro do condutor o campo é nulo,
+vemos que todo o condutor é equipotencial. Então podemos integrar num
+caminho radial da parede do condutor, a uma distância de \(R\) da carga,
+até \(A\), a uma distância \(R-\delta\). Podemos utilizar o campo da carga \(q\).
+
+\begin{align}
+  V(R) - V(R-\delta) &= -\frac q{4\pi\varepsilon_0}\int_{R-\delta}^R \frac{dr}{r^2}\\
+                &= \frac q{4\pi\varepsilon_0}\frac1r\Big\vert_{R-\delta}^R\\
+                &= \frac q{4\pi\varepsilon_0}\left(\frac1R-\frac1{R-\delta}\right).
+\end{align}
+Com \(\delta\rightarrow0\), vemos que a diferença de potencial entre \(R-\delta\) e \(R\) tende a
+zero. Contudo, veja que \(V(R)=\frac q{8\pi\varepsilon_0}\frac1R\) é o potencial na
+superfície interna da casca condutora. Portanto, 
+\begin{align}
+  \frac q{8\pi\varepsilon_0R} - V(R-\delta)
+  &= \frac q{4\pi\varepsilon_0R} - \frac q{4\pi\varepsilon_0(R-\delta)}\\
+  V(R-\delta)
+  &= \frac q{8\pi\varepsilon_0R} - \frac q{4\pi\varepsilon_0R} + \frac q{4\pi\varepsilon_0(R-\delta)}\\
+  &= -\frac q{8\pi\varepsilon_0R} + \frac q{4\pi\varepsilon_0(R-\delta)}\\
+  &= -\frac q{4\pi\varepsilon_0}\left(\frac1{2R}-\frac1{R-\delta}\right)\\
+  &=-\frac q{4\pi\varepsilon_0}\frac{R-\delta-2R}{2R(R-\delta)}\\
+  &=\frac q{8\pi\varepsilon_0}\frac{1+(\delta/R)}{R-\delta}\\
+  \lim_{\delta\rightarrow0}V(R-\delta) &= V(R) = \frac q{8\pi\varepsilon_0R},
+\end{align}
+que \textbf{não é} igual ao potencial gerado pela carga interna. Tomando \(\delta\rightarrow0\),
+temos o potencial da superfície interna da casca, como esperado. Isso ocorre
+pois a equação do potencial nasce do trabalho necessário de trazer uma
+carga infinito, cujo potencial adotamos como nulo, até algum ponto
+\(\mathbf r\), sob o campo elétrico gerado pela carga. Entretanto, como há
+o condutor, há uma região do espaço que o campo elétrico não é o campo
+elétrico da carga, mas sim \(\mathbf E=\mathbf 0\).
+
+\phantomsection
+\label{orgb27e443}
+\begin{center}
+\includegraphics[width=.9\linewidth]{./.ob-jupyter/15772dd1e2c419fd17ddea278ee6ac41d54e3232.png}
+\end{center}
+\end{document}

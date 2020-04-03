@@ -1,4 +1,4 @@
-% Created 2020-03-05 Thu 19:37
+% Created 2020-03-20 Fri 12:43
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -32,7 +32,7 @@
 
 \maketitle
 \section{Questão 1}
-\label{sec:org3781183}
+\label{sec:org63e7e84}
 É dado um sistema cartesiano \(\hat x\), \(\hat y\), \(\hat z\). Um fio reto
 infinito, de raio \(a\) muito pequeno, se estende de \(z=-\infty\) a
 \(z=\infty\). Calcule o campo elétrico num ponto P a uma distância \(r>a\) do
@@ -84,7 +84,7 @@ Com um pouco mais de análise, vemos que o campo na verdade é na direção
 \end{align}
 
 \section{Questão 2}
-\label{sec:org35731ff}
+\label{sec:org2023f6f}
 Num metal (condutor), o campo elétrico no interior do material é
 necessariamente nulo; caso contrário, campo movimentaria eternamente as
 cargas do metal. Mostre que as cargas elétricas num objeto metálico
@@ -102,7 +102,7 @@ somente podem estar na superfície do objeto. \emph{Sugestão. Dado um ponto}
 \end{figure}
 
 Considerando uma superfície gaussiana esférica de raio \(r\) interna ao
-condutor, como visto na Figura \ref{fig:ex-2}, podemos ver que 
+condutor, como visto na Figura ref:fig:ex-2, podemos ver que 
 \begin{align*}
   \oint \mathbf E\cdot d\mathbf S &= \frac{Q_{in}}{\varepsilon_0}.
 \end{align*}
@@ -116,7 +116,7 @@ Contudo, caso tenhamos uma superfície gaussiana externa ao condutor,
 fica claro que o campo não é necessariamente \(0\), e portanto as cargas
 devem se manter na superfície do condutor. 
 \section{Questão 3}
-\label{sec:org95a475c}
+\label{sec:org377b857}
 Uma placa metálica plana tem espessura uniforme \(2a\) e é infinita nas
 outras direções. Posiciona-se um sistema cartesiano com os eixos \(x\) e
 \(y\) paralelos à superfície da placa, de forma que a origem esteja no
@@ -192,13 +192,13 @@ perpendicular (\(\hat z\)), temos
 \end{align*}
 O campo dentro da placa, por ser metálica, é nulo.
 \section{Questão 4}
-\label{sec:org032b963}
+\label{sec:orgb99c6dc}
 Repita o problema anterior, mas agora considere uma superfície
 imaginária cilíndrica como a do problema anterior, exceto que as tampas
 estão em \(z=-z_0\) e \(z=z_0\).
 
 Agora, faremos a superfície gaussiana maior que a espessura da placa,
-como na Figura \ref{fig:ex-4}. 
+como na Figura ref:fig:ex-4. 
 \begin{figure}[h!]
   \centering
   \begin{tikzpicture}
@@ -229,7 +229,7 @@ em \(z=z_0\) e para baixo em \(z=-z_0\). Somando-se os campos,
   |\mathbf E| &= \frac{\sigma}{\varepsilon_0}.
 \end{align*}
 \section{Questão 5}
-\label{sec:org06dc614}
+\label{sec:org319b7a9}
 Uma superfície esférica de raio \(R\) está uniformemente carregada com
 carga \(Q\). Calcule o campo elétrico que ela produz a uma distância \(r>R\)
 de seu centro. \emph{Sugestão. Aplique a Lei de Gauss a uma superfície}
@@ -260,7 +260,7 @@ Pela Lei de Gauss,
 \end{align*}
 que é o campo de uma carga $Q$ pontual.
 \section{Questão 6}
-\label{sec:org4f5f7f9}
+\label{sec:orga445a4c}
 Repita o problema anterior, mas agora calcule o campo no interior da
 esfera (\(r<R\)).
 
@@ -270,7 +270,7 @@ uma superfície gaussiana interior à superfície esférica, não há cargas
 internas e portanto o campo elétrico interno é nulo.
 
 \section{Questão 7}
-\label{sec:orgce1bade}
+\label{sec:orgb5b4621}
 Duas superfícies esféricas concêntricas, de raios \(R\) e \(2R\), estão
 uniformemente carregadas, com cargas \(Q\) e \(-Q\),
 respectivamente. Calcule o campo elétrico na região \(R<r<2R\), entre as
@@ -303,7 +303,7 @@ Na região \(R<r<2R\), a única carga interna é a carga \(Q\). Assim,
 \end{align*}
 
 \section{Questão 8}
-\label{sec:org7566dde}
+\label{sec:org0c0390e}
 No problema anterior, mostre que os campos elétricos no interior da
 superfície menor e na região externa à superfície maior são nulos e
 mostre em diagrama esquemático as linhas de força em todo o espaço.
@@ -313,40 +313,7 @@ cargas. Portanto, o campo elétrico na região interna a ela é nulo. Na
 região externa a ambas as superfícies, \(Q_{in}=Q-Q=0\). Portanto, \(\oint\mathbf
 E\cdot d\mathbf S = 0\), para qualquer superfície gaussiana escolhida, o que
 significa que \(\mathbf E = \mathbf0\) para pontos fora da superfície de
-raio \(2R\). Vemos o diagrama de forças na Figura \ref{fig:ex-8-forca}.
-
-\begin{verbatim}
-import matplotlib.pyplot as plt
-from matplotlib.pyplot import figure
-import numpy as np
-figure(dpi=200,figsize=(4,4))
-
-def semicircle(r, x):
-    return np.sqrt(r**2-x**2)
-
-def reta(theta):
-    x = np.linspace(1,2,10)
-    return x*np.cos(theta)
-
-r1 = 1
-r2 = 2
-x = np.linspace(-r1,r1,100)
-plt.plot(x,semicircle(r1,x),'darkturquoise')
-plt.plot(x,-semicircle(r1,x),'darkturquoise')
-x = np.linspace(-r2,r2,100) 
-plt.plot(x,semicircle(r2,x),'orange')
-plt.plot(x,-semicircle(r2,x),'orange')
-plt.xlabel("x")
-plt.ylabel("y")
-
-theta = np.linspace(0,2*np.pi,16)
-r = np.linspace(r1,r2,100)
-for item in theta:
-    x = r*np.cos(item)
-    y = r*np.sin(item)
-    plt.arrow(x[0],y[0],x[1],y[1],head_width=.1,shape='full',length_includes_head=True)
-plt.savefig("imagens/ex-8.png")
-\end{verbatim}
+raio \(2R\). Vemos o diagrama de forças na Figura ref:fig:ex-8-forca.
 
 \begin{figure}[h!]
   \centering
@@ -356,7 +323,7 @@ plt.savefig("imagens/ex-8.png")
   \label{fig:ex-8-forca}
 \end{figure}
 \section{Questão 9}
-\label{sec:org88406d9}
+\label{sec:org71e8cd3}
 Um disco muito fino de raio \(a\) está carregado com densidade superficial
 uniforme \(\sigma\). Escolha um sistema de coordenadas com origem no centro do
 disco e eixo \(z\) perpendicular ao plano do disco. Calcule o campo
@@ -402,7 +369,7 @@ Com \(z^2 \ll a^2\), a raiz se aproxima de a. Então
 Quando muito próximo do disco, o campo se aproxima do campo de um plano
 carregado. 
 \section{Questão 10}
-\label{sec:orgc6b5260}
+\label{sec:org4229593}
 Uma esfera maciça de raio \(R\) tem carga elétrica uniformemente
 distribuída em seu interior, de forma que a densidade volumétrica de
 carga seja \(\rho\). Em outras palavras, qualquer volume \(\Delta V\) no interior da
@@ -411,19 +378,38 @@ esfera a uma distância \(r<R\) do centro. \emph{Sugestão. Imagine uma}
 \emph{superfície de raio \(r\) cujo centro coincida com o da esfera e aplique}
 \emph{nela a Lei de Gauss.}
 
-Utilizando a Lei de Gauss para um sistema similar ao da Figura
-\ref{fig:ex-5}, com a esfera interna maciça, temos
+Utilizando a Lei de Gauss para o sistema da Figura ref:fig:ex-10, com
+uma superfície gaussiana esférica, de raio \(r\), interna à esfera de raio
+\(R\), temos
+\begin{figure}[h!]
+  \centering
+  \begin{tikzpicture}
+    \draw[dotted, opacity=0.3] (1,0,0) arc (0:180:1 and 0.3);
+    \draw[fill=red!30,opacity=0.8] (0,0,0) circle (3);
+    \draw[dashed] (0,0,0) circle (1);
+    \draw[dashed] (1,0,0) arc (0:-180:1 and 0.3);
+    \draw[dashed, opacity=0.3] (3,0,0) arc (0:180:3 and 0.9);
+    \draw[dashed] (0,0,0) -- (1,0,0) node[above left] {$r$};
+    \draw (3,0,0) arc (0:-180:3 and 0.9);
+    \draw (0,0,0) -- (-2.2,2) node[above] {$R$};    
+  \end{tikzpicture}
+  \caption{Diagrama do exercício 10.}
+  \label{fig:ex-10}
+\end{figure}
+
+\begin{align*}
+  |\mathbf E| 4\pi r^2 &= \frac{4\pi r^3\rho}{3\varepsilon_0}\\
+  |\mathbf E| &= \frac{\rho r}{3\varepsilon_0}.
+\end{align*}
+
+
+Poderíamos ter calculado o campo para pontos exteriores à esfera de raio
+\(R\). A única diferença em relação as contas anteriores seria que
+\(Q_{in}=4\pi R^3 \rho/3\). Assim,
 \begin{align*}
   \oint \mathbf E\cdot d\mathbf S &= \frac{Q_{in}}{\varepsilon_0}\\ 
   |\mathbf E| 4\pi r^2 &= \frac{4\pi R^3\rho}{3\varepsilon_0}\\
   |\mathbf E| &= \frac{\rho R^3}{3\varepsilon_0r^2}.
-\end{align*}
-Poderíamos ter calculado o campo para pontos interiores à esfera de raio
-\(R\). A única diferença em relação as contas anteriores seria que
-\(Q_{in}=4\pi r^3 \rho/3\). Assim,
-\begin{align*}
-  |\mathbf E| 4\pi r^2 &= \frac{4\pi r^3\rho}{3\varepsilon_0}\\
-  |\mathbf E| &= \frac{\rho r}{3\varepsilon_0}.
 \end{align*}
 Veja que o campo elétrico em tal situação é contínuo. 
 \begin{verbatim}

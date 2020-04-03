@@ -391,7 +391,7 @@ de elétrons e a carga negativa existente em seu corpo. /Sugestão: o/
 /do nêutron) e divida sua massa pela massa do próton multiplicada por/
 /dois para encontrar o número de prótons./
 
-#+BEGIN_SRC python :exports results :results output :eval never-export :async t  
+#+BEGIN_SRC jupyter-python :exports results :results output :eval never-export :async yes  
   import numpy as np
   from pint import UnitRegistry
   import scipy.constants as consts
@@ -433,7 +433,7 @@ nós seria
 #+END_EXPORT
 Com $\varepsilon_0\approx8.85\cdot10^{-12}$ C^{2}N^{-1}m^{-2}, e a
 distância $r=1$ km, tal força teria intensidade
-#+BEGIN_SRC python :session :exports results :results output :eval never-export :async t  
+#+BEGIN_SRC jupyter-python :session :exports results :results output :eval never-export :async t yes
   import numpy as np
   from pint import UnitRegistry
   import scipy.constants as consts

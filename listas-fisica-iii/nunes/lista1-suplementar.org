@@ -312,7 +312,7 @@ E\cdot d\mathbf S = 0$, para qualquer superfície gaussiana escolhida, o que
 significa que $\mathbf E = \mathbf0$ para pontos fora da superfície de
 raio $2R$. Vemos o diagrama de forças na Figura ref:fig:ex-8-forca.
 
-#+BEGIN_SRC ipython :session :exports code :results none :eval never-export :ipyfile "imagens/ex-8.png"
+#+BEGIN_SRC jupyter-python :session py :exports none :results none :eval never-export :file "imagens/ex-8.png"
   import matplotlib.pyplot as plt
   from matplotlib.pyplot import figure
   import numpy as np
@@ -418,8 +418,38 @@ esfera a uma distância $r<R$ do centro. /Sugestão. Imagine uma/
 /superfície de raio $r$ cujo centro coincida com o da esfera e aplique/
 /nela a Lei de Gauss./
 
-Utilizando a Lei de Gauss para um sistema similar ao da Figura
-ref:fig:ex-5, com a esfera interna maciça, temos
+Utilizando a Lei de Gauss para o sistema da Figura ref:fig:ex-10, com
+uma superfície gaussiana esférica, de raio $r$, interna à esfera de raio
+$R$, temos
+#+BEGIN_EXPORT latex
+\begin{figure}[h!]
+  \centering
+  \begin{tikzpicture}
+    \draw[dotted, opacity=0.3] (1,0,0) arc (0:180:1 and 0.3);
+    \draw[fill=red!30,opacity=0.8] (0,0,0) circle (3);
+    \draw[dashed] (0,0,0) circle (1);
+    \draw[dashed] (1,0,0) arc (0:-180:1 and 0.3);
+    \draw[dashed, opacity=0.3] (3,0,0) arc (0:180:3 and 0.9);
+    \draw[dashed] (0,0,0) -- (1,0,0) node[above left] {$r$};
+    \draw (3,0,0) arc (0:-180:3 and 0.9);
+    \draw (0,0,0) -- (-2.2,2) node[above] {$R$};    
+  \end{tikzpicture}
+  \caption{Diagrama do exercício 10.}
+  \label{fig:ex-10}
+\end{figure}
+#+END_EXPORT
+
+#+BEGIN_EXPORT latex
+\begin{align*}
+  |\mathbf E| 4\pi r^2 &= \frac{4\pi r^3\rho}{3\varepsilon_0}\\
+  |\mathbf E| &= \frac{\rho r}{3\varepsilon_0}.
+\end{align*}
+#+END_EXPORT
+
+
+Poderíamos ter calculado o campo para pontos exteriores à esfera de raio
+$R$. A única diferença em relação as contas anteriores seria que
+$Q_{in}=4\pi R^3 \rho/3$. Assim,
 #+BEGIN_EXPORT latex
 \begin{align*}
   \oint \mathbf E\cdot d\mathbf S &= \frac{Q_{in}}{\varepsilon_0}\\ 
@@ -427,17 +457,8 @@ ref:fig:ex-5, com a esfera interna maciça, temos
   |\mathbf E| &= \frac{\rho R^3}{3\varepsilon_0r^2}.
 \end{align*}
 #+END_EXPORT
-Poderíamos ter calculado o campo para pontos interiores à esfera de raio
-$R$. A única diferença em relação as contas anteriores seria que
-$Q_{in}=4\pi r^3 \rho/3$. Assim,
-#+BEGIN_EXPORT latex
-\begin{align*}
-  |\mathbf E| 4\pi r^2 &= \frac{4\pi r^3\rho}{3\varepsilon_0}\\
-  |\mathbf E| &= \frac{\rho r}{3\varepsilon_0}.
-\end{align*}
-#+END_EXPORT
 Veja que o campo elétrico em tal situação é contínuo. 
-#+BEGIN_SRC ipython :session  :exports code :results none :eval never-export :ipyfile "imagens/ex-10.png"
+#+BEGIN_SRC jupyter-python :session py :exports code :results none :eval never-export :file "imagens/ex-10.png"
   import matplotlib.pyplot as plt
   import numpy as np
   from matplotlib.pyplot import figure
