@@ -1,4 +1,4 @@
-% Created 2020-04-03 Fri 02:38
+% Created 2020-04-03 Fri 16:30
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -52,8 +52,6 @@ referencial \(S\) com \texttt{curl(A,S)}:
 curl(A,S)
 \end{verbatim}
 
-$\displaystyle S_{x}\mathbf{\hat{s}_x} -  S_{y}\mathbf{\hat{s}_y} + (- S_{x} + S_{y})\mathbf{\hat{s}_z}$
-
 Desejamos plotar o campo \(\mathbf A\) e seu rotacional num plano \(z=0\). 
 \begin{verbatim}
 import matplotlib.pyplot as plt
@@ -76,16 +74,13 @@ plt.show()
 \begin{verbatim}
 U = lambdify(vars,curl(A,S).dot(S.x),modules='numpy')
 V = lambdify(vars,curl(A,S).dot(S.y),modules='numpy')
+figure(dpi=300)
 plt.streamplot(Y,X, U(X,Y,0), V(X,Y,0))
 plt.title(r'$\nabla\times\mathbf{A}$')
 plt.xlabel(r'x')
 plt.ylabel(r'y')
 plt.show()
 \end{verbatim}
-
-\begin{center}
-\includegraphics[width=.9\linewidth]{./.ob-jupyter/4edf476308f0b5a8649586320674ef65e4020ad6.png}
-\end{center}
 
 Se tivéssemos definido o campo \(\mathbf A\) como um gradiente de um campo
 escalar \(f=xy\),
@@ -100,7 +95,8 @@ $\displaystyle S_{y}\mathbf{\hat{s}_x} + S_{x}\mathbf{\hat{s}_y}$
 \begin{verbatim}
 U = lambdify(vars,A.dot(S.x),modules='numpy')
 V = lambdify(vars,A.dot(S.y),modules='numpy')
-plt.streamplot(Y,X, U(X,Y,0), V(X,Y,0))
+figure(dpi=300)
+plt.streamplot(Y,X,U(X,Y,0), V(X,Y,0))
 plt.title(r'$\mathbf{A}=\nabla f$')
 plt.xlabel(r'x')
 plt.ylabel(r'y')
@@ -108,7 +104,7 @@ plt.show()
 \end{verbatim}
 
 \begin{center}
-\includegraphics[width=.9\linewidth]{./.ob-jupyter/cbf904adf44fd782d970be8c5bb5abc08d26473b.png}
+\includegraphics[width=.9\linewidth]{./.ob-jupyter/579c4a13235dd668ec5ce8d55cf2e8077e16ab42.png}
 \end{center}
 De tal modo que \(\nabla\times A=0\):
 \begin{verbatim}
@@ -116,4 +112,27 @@ curl(A,S)
 \end{verbatim}
 
 $\displaystyle 0$
+
+\section{Integration}
+\label{sec:org9652966}
+\begin{verbatim}
+import matplotlib.pyplot as plt
+import numpy as np
+from sympy import *
+from sympy.physics.vector import ReferenceFrame
+from sympy.vector import Del
+
+x,y,z = symbols('x y z')
+nabla = Del()
+S = ReferenceFrame('S')
+r_vec = sum([S[indice]*versor for indice,versor in enumerate(S)])
+r = r_vec.magnitude()
+E = r_vec/r**3
+dx = (S.x+S.y+S.z)
+
+Integral(Integral(Integral(-E.dot(dx),(S[0],oo,x)),(S[1],oo,y)),(S[2],oo,z)).doit()
+
+\end{verbatim}
+
+$\displaystyle \int\limits_{\infty}^{z} \left(- \int\limits_{\infty}^{y} \frac{S_{y} x}{\sqrt{x^{2} + \operatorname{polar\_lift}{\left(S_{y}^{2} + S_{z}^{2} \right)}} \operatorname{polar\_lift}{\left(S_{y}^{2} + S_{z}^{2} \right)}}\, dS_{y} - \int\limits_{\infty}^{y} \frac{S_{z} x}{\sqrt{x^{2} + \operatorname{polar\_lift}{\left(S_{y}^{2} + S_{z}^{2} \right)}} \operatorname{polar\_lift}{\left(S_{y}^{2} + S_{z}^{2} \right)}}\, dS_{y} - \int\limits_{\infty}^{y} - \frac{1}{\sqrt{S_{y}^{2} + S_{z}^{2} + x^{2}}}\, dS_{y}\right)\, dS_{z}$
 \end{document}
